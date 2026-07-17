@@ -1,4 +1,4 @@
-const apiKey = "54a06eb2d38906b94cd15dce27a207ed"; // <-- put your real key here
+const apiKey = "54a06eb2d38906b94cd15dce27a207ed"; // <-- your key
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather";
 
 const searchBtn = document.getElementById("search-btn");
@@ -8,6 +8,7 @@ const errorDiv = document.getElementById("error");
 
 async function getWeather(city) {
   errorDiv.textContent = "";
+  errorDiv.style.display = "none";
   weatherDiv.innerHTML = "Loading...";
 
   try {
@@ -17,9 +18,9 @@ async function getWeather(city) {
 
     if (!response.ok) {
       if (response.status === 404) {
-        throw new Error("City not found");
+        throw new Error("City not found. Check spelling and try again.");
       } else {
-        throw new Error("Failed to fetch weather data");
+        throw new Error("Failed to fetch weather data.");
       }
     }
 
@@ -28,6 +29,7 @@ async function getWeather(city) {
   } catch (err) {
     weatherDiv.innerHTML = "";
     errorDiv.textContent = err.message;
+    errorDiv.style.display = "block";
   }
 }
 
@@ -38,9 +40,12 @@ function showWeather(data) {
   const description = data.weather[0].description;
   const humidity = data.main.humidity;
   const wind = data.wind.speed;
+  const iconCode = data.weather[0].icon;
+  const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
   weatherDiv.innerHTML = `
     <h2>${cityName}, ${country}</h2>
+    <img class="weather-icon" src="${iconUrl}" alt="${description}" />
     <div class="temp">${temp}°C</div>
     <div class="details">
       <p>${description}</p>

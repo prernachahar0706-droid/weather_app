@@ -76,4 +76,21 @@ body {
 .weather .details {
   font-size: 0.95rem;
   color: #555;
+}.weather-icon {
+  width: 90px;
+  height: 90px;
+  display: block;
+  margin: 6px auto;
+}
+
+.error {
+  display: none;
+  color: #b00020;
+  background: #ffe9ec;
+  border: 1px solid #ffb3bd;
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 0.92rem;
+  text-align: center;
 }
