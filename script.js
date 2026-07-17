@@ -6,6 +6,23 @@ const cityInput = document.getElementById("city-input");
 const weatherDiv = document.getElementById("weather");
 const errorDiv = document.getElementById("error");
 
+searchBtn.addEventListener("click", () => {
+  const city = cityInput.value.trim();
+  if (!city) {
+    errorDiv.textContent = "Please enter a city name.";
+    errorDiv.style.display = "block";
+    weatherDiv.innerHTML = "";
+    return;
+  }
+  getWeather(city);
+});
+
+// Optional: allow Enter key to search
+cityInput.addEventListener("keyup", (e) => {
+  if (e.key === "Enter") {
+    searchBtn.click();
+  }
+});
 async function getWeather(city) {
   errorDiv.textContent = "";
   errorDiv.style.display = "none";
@@ -32,7 +49,6 @@ async function getWeather(city) {
     errorDiv.style.display = "block";
   }
 }
-
 function showWeather(data) {
   const cityName = data.name;
   const country = data.sys.country;
@@ -70,4 +86,26 @@ cityInput.addEventListener("keyup", (e) => {
   if (e.key === "Enter") {
     searchBtn.click();
   }
+});// Try to get user's current location on page load
+window.addEventListener("load", () => {
+  if (!navigator.geolocation) {
+    // Browser doesn't support geolocation
+    errorDiv.textContent = "Geolocation is not supported by your browser.";
+    errorDiv.style.display = "block";
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      getWeatherByCoords(lat, lon);
+    },
+    (error) => {
+      // User denied or error occurred
+      errorDiv.textContent =
+        "Unable to access your location. Please search by city name.";
+      errorDiv.style.display = "block";
+    }
+  );
 });
