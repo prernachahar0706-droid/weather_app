@@ -1,53 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weather App</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Skyline Weather</title>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
+<!-- Styles -->
+<link rel="stylesheet" href="style.css" />
 
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="card">
-    <div class="top-row">
-      <h1>Weather App</h1>
-      <button id="theme-toggle">Dark</button>
+
+<div class="sky">
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+</div>
+
+<main class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span>Skyline</span>
     </div>
+    <button id="theme-toggle" class="pill-btn" type="button" aria-label="Toggle dark mode">
+      <span id="theme-icon">☾</span>
+    </button>
+  </header>
 
-    <p class="hint">
-      We’ll try to show your local weather automatically. You can also search any city.
-    </p>
-
+  <section class="search-row">
     <div class="search">
       <input
         type="text"
         id="city-input"
-        placeholder="Enter city name"
+        placeholder="Search a city…"
         spellcheck="false"
+        autocomplete="off"
       />
-      <button id="search-btn">Search</button>
+      <button id="search-btn" class="pill-btn primary" type="button">Search</button>
     </div>
+    <button id="locate-btn" class="pill-btn" type="button" title="Use my location">📍</button>
+  </section>
 
-    <div class="unit-toggle">
-      <label>
-        <input type="checkbox" id="unit-switch" />
-        Show °F
-      </label>
-    </div>
-
-    <div id="error" class="error"></div>
-
-    <div class="weather" id="weather">
-      <!-- Filled by JavaScript -->
-    </div>
+  <div class="unit-toggle">
+    <button class="unit-option active" id="unit-c" data-unit="C" type="button">°C</button>
+    <button class="unit-option" id="unit-f" data-unit="F" type="button">°F</button>
   </div>
 
-  <script src="script.js"></script>
+  <div id="status" class="status"></div>
+
+  <section id="weather" class="weather hidden">
+
+    <div class="hero-card glass">
+      <div class="hero-top">
+        <div>
+          <p class="location" id="location">—</p>
+          <p class="updated" id="updated">—</p>
+        </div>
+        <div class="hero-icon" id="hero-icon"></div>
+      </div>
+
+      <div class="hero-temp">
+        <span id="temp">--</span><span class="deg">°</span>
+      </div>
+      <p class="condition" id="condition">—</p>
+
+      <div class="sun-row">
+        <span id="sunrise">—</span>
+        <span class="sun-divider">·</span>
+        <span id="sunset">—</span>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <div class="detail-card glass">
+        <span class="detail-label">Feels like</span>
+        <span class="detail-value" id="feels-like">--°</span>
+      </div>
+      <div class="detail-card glass">
+        <span class="detail-label">Humidity</span>
+        <span class="detail-value" id="humidity">--%</span>
+      </div>
+      <div class="detail-card glass">
+        <span class="detail-label">Wind</span>
+        <span class="detail-value" id="wind">-- km/h</span>
+      </div>
+    </div>
+
+    <div class="forecast-strip" id="forecast">
+      <!-- Filled by JavaScript -->
+    </div>
+
+  </section>
+
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>
